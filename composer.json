@@ -1,5 +1,13 @@
 {
+    "name":"evt/evt",
+    "description":"REST API written in vanilla php",
     "require": {
         "vlucas/phpdotenv": "^5.2"
+    },
+    "autoload":{
+        "psr-4": {
+            "App\\":"App/",
+            "Core\\":"Core/"
+        }
     }
 }
