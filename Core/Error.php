@@ -11,8 +11,8 @@
         public static function exceptionHandler($e) {
 
             $code = $e->getCode() ?? 500;
-            $message = ['message' => $e->getMessage()];
-            http_response_code($code);
+            $message = ['message' => $e->getMessage(), 'file'=> $e->getFile(), 'line' => $e->getLine()];
+            http_response_code((int)$code);
             echo json_encode($message);
         }
     }

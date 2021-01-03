@@ -50,7 +50,7 @@
                     $method = $this->params['method'];
                     $method = strtolower($method);
 
-                    // checking if the resource method (POST/GET/PUT) exists
+                    // checking if the resource method (POST/GET/PUT) can be called
                     if(is_callable([$resourceObject, $method])) {
                         return $resourceObject->$method();
                     }
