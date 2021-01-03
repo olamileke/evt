@@ -26,8 +26,48 @@
             $stmt->bindValue(':password', $hashedPassword, PDO::PARAM_STR);
             $stmt->bindValue(':token', $hashedToken, PDO::PARAM_STR);
             $stmt->bindValue(':created_at', time() , PDO::PARAM_INT);
+            $stmt->execute();
 
-            return $stmt->execute();
+            return self::retrieveLatestUser();
+        }
+
+        public static function authenticate(string $email, string $password) {
+
+            $user = self::findByEmail($email);
+
+            if(!$user) {
+                return;
+            }
+
+            if(password_verify($password, $user->password)) {
+                return $user;
+            }
+
+            return;
+        }
+
+        public static function findByEmail($email) {
+
+            $db = self::getDB();
+            $sql = "SELECT * FROM users WHERE email=:email";
+            $stmt = $db->prepare($sql);
+
+            $stmt->bindValue(':email', $email, PDO::PARAM_STR);
+            $stmt->setFetchMode(PDO::FETCH_CLASS, get_called_class());
+            $stmt->execute();
+
+            return $stmt->fetch();
+        }
+
+        public static function retrieveLatestUser() {
+            
+            $db = self::getDB();
+            $sql = 'SELECT * FROM users ORDER BY id DESC LIMIT 1';
+            $stmt = $db->prepare($sql);
+            $stmt->setFetchMode(PDO::FETCH_CLASS, get_called_class());
+            $stmt->execute();
+
+            return $stmt->fetch();
         }
     }
 

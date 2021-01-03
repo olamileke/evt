@@ -2,7 +2,8 @@
     "name":"evt/evt",
     "description":"REST API written in vanilla php",
     "require": {
-        "vlucas/phpdotenv": "^5.2"
+        "vlucas/phpdotenv": "^5.2",
+        "firebase/php-jwt": "^5.2"
     },
     "autoload":{
         "psr-4": {
