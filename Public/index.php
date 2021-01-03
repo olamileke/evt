@@ -16,7 +16,7 @@
     header('Content-Type: application/json');
     header('Access-Control-Allow-Methods: GET, POST, PUT, PATCH, DELETE, OPTIONS');
     header('Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With');
-
+    
     $url = $_SERVER['QUERY_STRING'];
     $router = new Core\Router();
 
@@ -24,6 +24,7 @@
     $router->add('api/v1/signup', ['resource'=>'Signup', 'method'=>'post']);
     $router->add('api/v1/authenticate', ['resource'=>'Authenticate', 'method'=>'post']);
     $router->add('api/v1/events', ['resource'=>'Events', 'method'=>'post']);
+    $router->add('api/v1/events', ['resource'=>'Events', 'method'=>'get']);
 
     $router->dispatch($url);
 ?>

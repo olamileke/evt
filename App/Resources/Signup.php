@@ -40,7 +40,7 @@
 
             $user = User::save($this->data->name, $this->data->email, $this->data->password);
             $user = ['name' => $user->name, 'email' => $user->email, 'created_at' => $user->created_at];
-            $data = ['message' => 'user signed up successfully', 'user' => $user];
+            $data = ['data' => ['user' => $user]];
             http_response_code(201);
             echo json_encode($data);
             return;

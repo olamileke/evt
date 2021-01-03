@@ -4,33 +4,38 @@
 
     class Router {
 
-        protected $routes;
+        protected $routes = [];
         protected $params;
 
         public function add(string $route, array $params = []) {
             
             $route = preg_replace('/\//','\\/',$route);
 			$route = preg_replace('/\{([a-z-]+):([^\}]+)\}/', '(?P<\1>\2)', $route);
-			$route = '/^'.$route.'$/';
-            $this->routes[$route] = $params;
+            $route = '/^'.$route.'$/';
+
+            $set = !array_key_exists($route, $this->routes) ? $this->routes[$route] = array($params) 
+            : array_push($this->routes[$route], $params);
         }
 
         public function match(string $url) {
             
             foreach($this->routes as $route => $params) {
 
-                if(preg_match($route, $url, $matches)) {
+                foreach($params as $param) {
+
+                    if(preg_match($route, $url, $matches) && strtolower($_SERVER['REQUEST_METHOD']) == $param['method']) {
                     
-                    $this->params = $params;
-
-                    // if there is something like an id parameter in the route
-                    if($matches) {
-                        foreach($matches as $key => $value) {
-                            $this->params[$key] = $value;
+                        $this->params = $param;
+    
+                        // if there is something like an id parameter in the route
+                        if($matches) {
+                            foreach($matches as $key => $value) {
+                                $this->params[$key] = $value;
+                            }
                         }
+    
+                        return true;
                     }
-
-                    return true;
                 }
             }
 

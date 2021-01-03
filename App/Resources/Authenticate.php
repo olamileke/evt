@@ -49,6 +49,8 @@
             $jwtToken = JWT::encode($params, $secretKey);
             $user = ['name' => $user->name, 'email' => $user->email, 'created_at' => $user->created_at];
             $data = ['user' => $user, 'token' => $jwtToken];
+            $data = ['data' => $data];
+            http_response_code(200);
             echo json_encode($data);
         }
 
