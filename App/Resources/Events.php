@@ -35,6 +35,15 @@
             http_response_code(201);
             echo json_encode($data);
         }
+
+        public function get() {
+
+            $userID = (int)$this->params['userID'];
+            $events = Event::all($userID);
+            $data = ['data' => ['events' => $events]];
+            http_response_code(200);
+            echo json_encode($data);
+        }
     } 
 
 

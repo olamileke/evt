@@ -24,13 +24,48 @@
         public static function retrieveLatestEvent(int $userID) {
 
             $db = self::getDB();
-            $sql ='SELECT * FROM events WHERE user_id=:user_id ORDER BY id DESC LIMIT 1';
+            $sql = 'SELECT * FROM events WHERE user_id=:user_id ORDER BY id DESC LIMIT 1';
             $stmt = $db->prepare($sql);
             $stmt->bindValue(':user_id', $userID, PDO::PARAM_INT);
             $stmt->setFetchMode(PDO::FETCH_CLASS, get_called_class());
             $stmt->execute();
 
             return $stmt->fetch();
+        }
+
+        public static function all(int $userID) {
+
+            $db = self::getDB();
+            $sql = 'SELECT * FROM events WHERE user_id=:user_id ORDER BY id DESC';
+            $stmt = $db->prepare($sql);
+            $stmt->bindValue(':user_id', $userID, PDO::PARAM_INT);
+            $stmt->setFetchMode(PDO::FETCH_CLASS, get_called_class());
+            $stmt->execute();
+
+            return $stmt->fetchAll();
+        }
+
+        public static function findByID(int $id, int $userID) {
+
+            $db = self::getDB();
+            $sql = 'SELECT * FROM events WHERE id=:id AND user_id=:user_id';
+            $stmt = $db->prepare($sql);
+            $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+            $stmt->bindValue(':user_id', $userID, PDO::PARAM_INT);
+            $stmt->setFetchMode(PDO::FETCH_CLASS, get_called_class());
+            $stmt->execute();
+
+            return $stmt->fetch();
+        }
+
+        public static function delete(int $id) {
+
+            $db = self::getDB();
+            $sql = 'DELETE FROM events WHERE id=:id';
+            $stmt = $db->prepare($sql);
+            $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+            
+            return $stmt->execute();
         }
     }
 
