@@ -42,10 +42,10 @@
 
             $secretKey = $_ENV['SECRET_KEY'];
             $now = time();
-            $params = ['userId' => $user->id];
+            $params = ['userID' => $user->id];
             $params['iat'] = $now;
             $params['nbf'] = $now;
-            $params['exp'] = $now;
+            $params['exp'] = $now + (60 * 60 * 24);
             $jwtToken = JWT::encode($params, $secretKey);
             $user = ['name' => $user->name, 'email' => $user->email, 'created_at' => $user->created_at];
             $data = ['user' => $user, 'token' => $jwtToken];

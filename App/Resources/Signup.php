@@ -29,6 +29,15 @@
                 return;
             }
 
+            // seeing as email is unique. checking if a user with email address exists
+            $user = User::findByEmail($this->data->email);
+
+            if($user) {
+                http_response_code(400);
+                echo json_encode(['message' => 'user with email exists already']);
+                return;
+            }
+
             $user = User::save($this->data->name, $this->data->email, $this->data->password);
             $user = ['name' => $user->name, 'email' => $user->email, 'created_at' => $user->created_at];
             $data = ['message' => 'user signed up successfully', 'user' => $user];
@@ -40,6 +49,7 @@
             throw new \Exception('failure to save new user', 500);
         }
 
+        // checking if the various required params are present in the request
         public function has() {
             
             $errors = [];
@@ -59,6 +69,7 @@
             return $errors;
         }
 
+        // checking if request params are in the proper format
         public function validate() {
             
             $errors = [];
