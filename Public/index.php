@@ -21,12 +21,13 @@
     $router = new Core\Router();
 
     // creating all api routes
-    $router->add('api/v1/signup', ['resource'=>'Signup', 'method'=>'post']);
-    $router->add('api/v1/authenticate', ['resource'=>'Authenticate', 'method'=>'post']);
-    $router->add('api/v1/events', ['resource'=>'Events', 'method'=>'post']);
-    $router->add('api/v1/events', ['resource'=>'Events', 'method'=>'get']);
-    $router->add('api/v1/events/{id:[\d]+}', ['resource'=>'Event', 'method'=>'get']);
-    $router->add('api/v1/events/{id:[\d]+}', ['resource'=>'Event', 'method'=>'delete']);
+    $router->add('api/v1/signup', ['resource' => 'Signup', 'method' => 'post']);
+    $router->add('api/v1/authenticate', ['resource' => 'Authenticate', 'method' => 'post']);
+    $router->add('api/v1/events', ['resource' => 'Events', 'method' => 'post']);
+    $router->add('api/v1/events', ['resource' => 'Events', 'method' => 'get']);
+    $router->add('api/v1/events/{id:[\d]+}', ['resource' => 'Event', 'method' => 'get']);
+    $router->add('api/v1/events/{id:[\d]+}', ['resource' => 'Event', 'method' => 'put']);
+    $router->add('api/v1/events/{id:[\d]+}', ['resource' => 'Event', 'method' => 'delete']);
 
     $router->dispatch($url);
 ?>

@@ -58,6 +58,18 @@
             return $stmt->fetch();
         }
 
+        public static function update(int $id, string $name, string $description, int $userID) {
+            $db = self::getDB();
+            $sql = 'UPDATE events SET name=:name, description=:description WHERE id=:id';
+            $stmt = $db->prepare($sql);
+            $stmt->bindValue(':name', $name, PDO::PARAM_STR);
+            $stmt->bindValue(':description', $description, PDO::PARAM_STR);
+            $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+            $stmt->execute();
+
+            return self::findByID($id, $userID);
+        }
+
         public static function delete(int $id) {
 
             $db = self::getDB();
