@@ -33,4 +33,4 @@ For xampp users, navigate to your  *apache/conf* folder which contains all the c
 
 For wamp users, follow this [guide](https://john-dugan.com/wamp-vhost-setup/ "guide") to find your *httpd.conf*  file.
 
-Finally, open up the *Public/index.php* file to view a list of all the routes for the application. Make use of curl, Postman or any other similar utility to make calls to the API. Make sure to prefix the routes with *http://localhost* like *http://ocalhost/api/v1/signup* or *http://localhost:8080/api/v1/signup* if your local server is running on the 8080 port.
+Finally, open up the *Public/index.php* file to view a list of all the routes for the application. Make use of curl, Postman or any other similar utility to make calls to the API. Make sure to prefix the routes with *http://localhost* like *http://localhost/api/v1/signup* or *http://localhost:8080/api/v1/signup* if your local server is running on the 8080 port.
